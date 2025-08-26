@@ -7,10 +7,10 @@ const ChannelInfo: React.FC = () => {
     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 p-6 bg-card">
       {/* Left side - Profile & Channel Info */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        {/* Profile Photo with glowing ring */}
+        {/* Profile Photo without glow */}
         <div className="relative">
-          <div className="w-24 h-24 lg:w-28 lg:h-28 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 p-1 glow-ring">
-            <div className="w-full h-full rounded-full bg-gray-700 flex items-center justify-center text-3xl font-bold text-white">
+          <div className="w-24 h-24 lg:w-28 lg:h-28 rounded-full bg-muted p-1">
+            <div className="w-full h-full rounded-full bg-card flex items-center justify-center text-3xl font-bold text-foreground">
               YT
             </div>
           </div>

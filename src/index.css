@@ -6,48 +6,48 @@
 
 @layer base {
   :root {
-    /* Dark theme color palette */
-    --background: 217 33% 7%;         /* Deep dark background #121212 */
-    --foreground: 210 40% 98%;        /* Pure white text */
+    /* Pure black and white color palette */
+    --background: 0 0% 0%;            /* Pure black background */
+    --foreground: 0 0% 100%;          /* Pure white text */
     
-    --card: 217 33% 10%;              /* Dark cards */
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 5%;                  /* Near black cards */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 217 33% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 210 40% 98%;           /* White primary */
-    --primary-foreground: 217 33% 7%;
+    --primary: 0 0% 100%;             /* White primary */
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 215 25% 20%;         /* Dark gray secondary */
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 10%;            /* Dark gray secondary */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 215 25% 15%;
-    --muted-foreground: 215 20% 65%;  /* Gray text */
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 70%;     /* Light gray text */
 
-    --accent: 215 25% 20%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;         /* Red for subscribe button */
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 100% 50%;        /* Pure red for video player bar */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 215 25% 20%;
-    --input: 215 25% 15%;
-    --ring: 210 40% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 10%;
+    --ring: 0 0% 100%;
 
-    /* Neon accent colors */
-    --neon-purple: 270 100% 70%;      /* Purple for gradient */
-    --neon-blue: 220 100% 70%;        /* Blue for gradient */
-    --neon-red: 0 100% 60%;           /* Bright red */
-    --neon-glow: 220 100% 80%;        /* Glow effect */
+    /* Simple accent colors */
+    --neon-purple: 0 0% 50%;          /* Gray for gradient */
+    --neon-blue: 0 0% 30%;            /* Dark gray for gradient */
+    --neon-red: 0 100% 50%;           /* Red for video player */
+    --neon-glow: 0 0% 80%;            /* Light gray glow */
     
     /* Glass effect */
-    --glass-bg: 217 33% 10% / 0.3;
-    --glass-border: 210 40% 98% / 0.1;
+    --glass-bg: 0 0% 0% / 0.7;        /* More transparent black */
+    --glass-border: 0 0% 100% / 0.1;
     
     /* Gradients */
     --gradient-banner: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-blue)));
-    --gradient-glow: radial-gradient(circle, hsl(var(--neon-glow) / 0.3) 0%, transparent 70%);
+    --gradient-glow: radial-gradient(circle, hsl(var(--neon-glow) / 0.2) 0%, transparent 70%);
     
     /* Shadows */
     --shadow-glow: 0 0 20px hsl(var(--neon-glow) / 0.5);
