@@ -1,16 +1,55 @@
 import React, { useState, useRef } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Move } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, Move, Music } from 'lucide-react';
 
 const FloatingMusicPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 16, y: 16 });
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const [currentSong, setCurrentSong] = useState({ title: 'Chill Beats', artist: 'Lo-fi Hip Hop', language: 'English' });
   const dragRef = useRef<HTMLDivElement>(null);
   const dragStartRef = useRef({ x: 0, y: 0 });
 
+  const songs = {
+    Kannada: [
+      { title: 'Yaare Koogadali', artist: 'Sanjith Hegde' },
+      { title: 'Ondu Malebillu', artist: 'Armaan Malik' }
+    ],
+    Hindi: [
+      { title: 'Tum Hi Ho', artist: 'Arijit Singh' },
+      { title: 'Kesariya', artist: 'Pritam' }
+    ],
+    Telugu: [
+      { title: 'Buttabomma', artist: 'Armaan Malik' },
+      { title: 'Ramuloo Ramulaa', artist: 'Anurag Kulkarni' }
+    ],
+    Tamil: [
+      { title: 'Vaathi Coming', artist: 'Anirudh' },
+      { title: 'Ennodu Nee Irundhaal', artist: 'Sid Sriram' }
+    ],
+    Marathi: [
+      { title: 'Zingaat', artist: 'Ajay Gogavale' },
+      { title: 'Bappa Morya', artist: 'Shankar Mahadevan' }
+    ],
+    Malayalam: [
+      { title: 'Paattu Paadava', artist: 'K.J. Yesudas' },
+      { title: 'Malyalam Melody', artist: 'Vineeth Sreenivasan' }
+    ],
+    English: [
+      { title: 'Chill Beats', artist: 'Lo-fi Hip Hop' },
+      { title: 'Summer Vibes', artist: 'Indie Pop' }
+    ]
+  };
+
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
+  };
+
+  const selectSong = (language: string, song: { title: string; artist: string }) => {
+    setCurrentSong({ ...song, language });
+    setShowPlaylist(false);
+    setIsPlaying(true);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -71,18 +110,42 @@ const FloatingMusicPlayer: React.FC = () => {
 
       {/* Song Info - Compact */}
       <div className="flex items-center gap-2 mb-2">
-        <div className="w-8 h-8 bg-muted rounded flex items-center justify-center">
-          <span className="text-foreground font-bold text-xs">♪</span>
-        </div>
+        <button 
+          onClick={() => setShowPlaylist(!showPlaylist)}
+          className="w-8 h-8 bg-muted rounded flex items-center justify-center hover:bg-muted/80 transition-colors"
+        >
+          <Music className="w-3 h-3 text-foreground" />
+        </button>
         <div className="flex-1 min-w-0">
           <div className="text-xs font-medium text-foreground truncate">
-            Chill Beats
+            {currentSong.title}
           </div>
           <div className="text-xs text-muted-foreground truncate">
-            Lo-fi Hip Hop
+            {currentSong.artist} • {currentSong.language}
           </div>
         </div>
       </div>
+
+      {/* Playlist Dropdown */}
+      {showPlaylist && (
+        <div className="absolute top-full left-0 w-64 max-h-48 overflow-y-auto bg-card border border-white/10 rounded-lg mt-1 z-50">
+          {Object.entries(songs).map(([language, songList]) => (
+            <div key={language} className="p-2">
+              <div className="text-xs font-semibold text-muted-foreground mb-1">{language}</div>
+              {songList.map((song, index) => (
+                <button
+                  key={index}
+                  onClick={() => selectSong(language, song)}
+                  className="w-full text-left p-1 hover:bg-white/5 rounded text-xs text-foreground/80 hover:text-foreground transition-colors"
+                >
+                  <div className="truncate">{song.title}</div>
+                  <div className="text-xs text-muted-foreground truncate">{song.artist}</div>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Waveform Animation - Red */}
       <div className="flex items-center justify-center gap-0.5 h-4 mb-2">

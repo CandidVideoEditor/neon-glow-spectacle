@@ -1,8 +1,16 @@
 import React from 'react';
+import bannerBg from '../assets/banner-bg.png';
 
 const AnimatedBanner: React.FC = () => {
   return (
-    <div className="relative w-full h-48 banner-gradient overflow-hidden group">
+    <div 
+      className="relative w-full h-48 overflow-hidden group"
+      style={{
+        backgroundImage: `url(${bannerBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       {/* Glowing border animation on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" 
