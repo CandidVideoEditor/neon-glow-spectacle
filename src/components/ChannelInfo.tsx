@@ -30,18 +30,18 @@ const ChannelInfo: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-muted-foreground">
             <span>@aesthetic.editors</span>
             <span className="hidden sm:inline">•</span>
-            <span>1.2M subscribers</span>
+            <span>1.43K subscribers</span>
           </div>
 
           {/* Channel Stats */}
           <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <Video className="w-4 h-4" />
-              <span>247 videos</span>
+              <span>90 videos</span>
             </div>
             <div className="flex items-center gap-1">
               <Eye className="w-4 h-4" />
-              <span>15.2M views</span>
+              <span>20K views</span>
             </div>
             <div className="flex items-center gap-1">
               <TrendingUp className="w-4 h-4" />

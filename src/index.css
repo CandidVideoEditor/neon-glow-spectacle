@@ -206,6 +206,11 @@
   50% { background-position: 100% 50%; }
 }
 
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 @keyframes glowPulse {
   0%, 100% { 
     box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.5);

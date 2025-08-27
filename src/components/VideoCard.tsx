@@ -1,5 +1,5 @@
-import React from 'react';
-import { Heart, Share, Eye, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, Share, Eye, Clock, MessageCircle, Play } from 'lucide-react';
 
 interface VideoCardProps {
   title: string;
@@ -7,7 +7,9 @@ interface VideoCardProps {
   uploadTime: string;
   likes: string;
   shares: string;
+  comments: string;
   thumbnail?: string;
+  videoUrl?: string;
   index?: number;
 }
 
@@ -17,32 +19,48 @@ const VideoCard: React.FC<VideoCardProps> = ({
   uploadTime,
   likes,
   shares,
+  comments,
   thumbnail,
+  videoUrl,
   index = 0
 }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleVideoClick = () => {
+    if (videoUrl) {
+      setIsPlaying(true);
+      // Open video in modal or redirect
+      window.open(videoUrl, '_blank');
+    }
+  };
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
   return (
     <div 
       className="video-card bg-card rounded-xl overflow-hidden border border-border group animate-slide-up"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Thumbnail */}
-      <div className="relative overflow-hidden aspect-video">
+      <div className="relative overflow-hidden aspect-video cursor-pointer" onClick={handleVideoClick}>
         <div className="video-thumbnail w-full h-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center transition-transform duration-300">
           {thumbnail ? (
             <img 
               src={thumbnail} 
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div className="text-6xl text-white/50">▶</div>
           )}
         </div>
         
-        {/* Hover overlay */}
+        {/* Play button overlay */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-          <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-50 group-hover:scale-100">
-            <div className="w-0 h-0 border-l-8 border-l-white border-t-4 border-t-transparent border-b-4 border-b-transparent ml-1"></div>
+          <div className="w-16 h-16 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-50 group-hover:scale-100">
+            <Play className="w-6 h-6 text-white fill-white" />
           </div>
         </div>
       </div>
@@ -69,11 +87,24 @@ const VideoCard: React.FC<VideoCardProps> = ({
         {/* Actions */}
         <div className="flex items-center justify-between pt-2 border-t border-border/50">
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-1 text-muted-foreground hover:text-red-400 transition-colors duration-200 group/like">
-              <Heart className="w-4 h-4 group-hover/like:scale-110 transition-transform duration-200" />
+            <button 
+              onClick={handleLike}
+              className={`flex items-center gap-1 transition-colors duration-200 group/like ${
+                isLiked ? 'text-red-500' : 'text-muted-foreground hover:text-red-400'
+              }`}
+            >
+              <Heart className={`w-4 h-4 group-hover/like:scale-110 transition-transform duration-200 ${
+                isLiked ? 'fill-red-500' : ''
+              }`} />
               <span className="text-sm">{likes}</span>
             </button>
-            <button className="flex items-center gap-1 text-muted-foreground hover:text-blue-400 transition-colors duration-200 group/share">
+            
+            <button className="flex items-center gap-1 text-muted-foreground hover:text-blue-400 transition-colors duration-200 group/comment">
+              <MessageCircle className="w-4 h-4 group-hover/comment:scale-110 transition-transform duration-200" />
+              <span className="text-sm">{comments}</span>
+            </button>
+            
+            <button className="flex items-center gap-1 text-muted-foreground hover:text-green-400 transition-colors duration-200 group/share">
               <Share className="w-4 h-4 group-hover/share:scale-110 transition-transform duration-200" />
               <span className="text-sm">{shares}</span>
             </button>

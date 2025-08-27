@@ -53,7 +53,12 @@ const FloatingMusicPlayer: React.FC = () => {
     { id: '0VjIjW4GlUZAMYd2vXMi3b', title: 'Blinding Lights', artist: 'The Weeknd' },
     { id: '3n3Ppam7vgaVa1iaRUc9Lp', title: 'Mr. Brightside', artist: 'The Killers' },
     { id: '7qiZfU4dY1lWllzX7mPBI3', title: 'Someone Like You', artist: 'Adele' },
-    { id: '4VqPOruhp5EdPBeR92t6lQ', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars' }
+    { id: '4VqPOruhp5EdPBeR92t6lQ', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars' },
+    { id: '1Je1IMUlBXcx1Fz0WE7oPT', title: 'Bad Guy', artist: 'Billie Eilish' },
+    { id: '11dFghVXANMlKmJXsNCbNl', title: 'Someone You Loved', artist: 'Lewis Capaldi' },
+    { id: '0sf0Es2FDLt3Zb5aSzIVQF', title: 'Watermelon Sugar', artist: 'Harry Styles' },
+    { id: '6f70bfcWU0aPCnQSAOBBnqX', title: 'Levitating', artist: 'Dua Lipa' },
+    { id: '2plbrEY59IikOBgBGLjaoe', title: 'drivers license', artist: 'Olivia Rodrigo' }
   ];
 
   const togglePlayPause = () => {

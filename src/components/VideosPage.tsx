@@ -68,6 +68,7 @@ const VideosPage: React.FC = () => {
             uploadTime={video.uploadTime}
             likes={video.likes}
             shares={video.shares}
+            comments={`${Math.floor(Math.random() * 200 + 10)}`}
           />
         ))}
       </div>
