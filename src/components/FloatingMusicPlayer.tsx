@@ -8,6 +8,8 @@ const FloatingMusicPlayer: React.FC = () => {
   const [position, setPosition] = useState({ x: 16, y: 16 });
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [currentSong, setCurrentSong] = useState({ title: 'Chill Beats', artist: 'Lo-fi Hip Hop', language: 'English' });
+  const [isSpotifyMode, setIsSpotifyMode] = useState(false);
+  const [spotifyTrackId, setSpotifyTrackId] = useState('4iV5W9uYEdYUVa79Axb7Rh'); // Default track
   const dragRef = useRef<HTMLDivElement>(null);
   const dragStartRef = useRef({ x: 0, y: 0 });
 
@@ -39,15 +41,42 @@ const FloatingMusicPlayer: React.FC = () => {
     English: [
       { title: 'Chill Beats', artist: 'Lo-fi Hip Hop' },
       { title: 'Summer Vibes', artist: 'Indie Pop' }
+    ],
+    Spotify: [
+      { title: 'Spotify Tracks', artist: 'Stream Free', spotifyId: '4iV5W9uYEdYUVa79Axb7Rh' },
+      { title: 'Popular Hits', artist: 'Spotify', spotifyId: '0VjIjW4GlUZAMYd2vXMi3b' }
     ]
   };
+
+  const spotifyTracks = [
+    { id: '4iV5W9uYEdYUVa79Axb7Rh', title: 'Shape of You', artist: 'Ed Sheeran' },
+    { id: '0VjIjW4GlUZAMYd2vXMi3b', title: 'Blinding Lights', artist: 'The Weeknd' },
+    { id: '3n3Ppam7vgaVa1iaRUc9Lp', title: 'Mr. Brightside', artist: 'The Killers' },
+    { id: '7qiZfU4dY1lWllzX7mPBI3', title: 'Someone Like You', artist: 'Adele' },
+    { id: '4VqPOruhp5EdPBeR92t6lQ', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars' }
+  ];
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const selectSong = (language: string, song: { title: string; artist: string }) => {
-    setCurrentSong({ ...song, language });
+  const selectSong = (language: string, song: { title: string; artist: string; spotifyId?: string }) => {
+    if (language === 'Spotify' && song.spotifyId) {
+      setIsSpotifyMode(true);
+      setSpotifyTrackId(song.spotifyId);
+      setCurrentSong({ title: 'Spotify Track', artist: 'Loading...', language: 'Spotify' });
+    } else {
+      setIsSpotifyMode(false);
+      setCurrentSong({ ...song, language });
+    }
+    setShowPlaylist(false);
+    setIsPlaying(true);
+  };
+
+  const selectSpotifyTrack = (track: { id: string; title: string; artist: string }) => {
+    setIsSpotifyMode(true);
+    setSpotifyTrackId(track.id);
+    setCurrentSong({ title: track.title, artist: track.artist, language: 'Spotify' });
     setShowPlaylist(false);
     setIsPlaying(true);
   };
@@ -128,8 +157,26 @@ const FloatingMusicPlayer: React.FC = () => {
 
       {/* Playlist Dropdown */}
       {showPlaylist && (
-        <div className="absolute top-full left-0 w-64 max-h-48 overflow-y-auto bg-card border border-white/10 rounded-lg mt-1 z-50">
-          {Object.entries(songs).map(([language, songList]) => (
+        <div className="absolute top-full left-0 w-64 max-h-60 overflow-y-auto bg-card border border-white/10 rounded-lg mt-1 z-50">
+          {/* Spotify Tracks Section */}
+          <div className="p-2 border-b border-white/10">
+            <div className="text-xs font-semibold text-green-400 mb-1 flex items-center gap-1">
+              🎵 Spotify Free
+            </div>
+            {spotifyTracks.map((track, index) => (
+              <button
+                key={`spotify-${index}`}
+                onClick={() => selectSpotifyTrack(track)}
+                className="w-full text-left p-1 hover:bg-white/5 rounded text-xs text-foreground/80 hover:text-foreground transition-colors"
+              >
+                <div className="truncate">{track.title}</div>
+                <div className="text-xs text-muted-foreground truncate">{track.artist}</div>
+              </button>
+            ))}
+          </div>
+          
+          {/* Local Songs */}
+          {Object.entries(songs).filter(([language]) => language !== 'Spotify').map(([language, songList]) => (
             <div key={language} className="p-2">
               <div className="text-xs font-semibold text-muted-foreground mb-1">{language}</div>
               {songList.map((song, index) => (
@@ -144,6 +191,21 @@ const FloatingMusicPlayer: React.FC = () => {
               ))}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Spotify Embed Player */}
+      {isSpotifyMode && isPlaying && (
+        <div className="absolute top-full left-0 w-64 mt-1 rounded-lg overflow-hidden z-40">
+          <iframe
+            src={`https://open.spotify.com/embed/track/${spotifyTrackId}?utm_source=generator&theme=0`}
+            width="100%"
+            height="152"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            className="rounded-lg"
+          />
         </div>
       )}
 
