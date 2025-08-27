@@ -73,10 +73,10 @@ const HomePage: React.FC = () => {
       <section className="relative overflow-hidden bg-gradient-to-b from-purple-900/20 to-blue-900/20 py-8">
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold text-foreground mb-2 animate-fade-in">
-            Best Color Correction & Wedding Events
+            AESTHETIC GALLERY
           </h2>
           <p className="text-muted-foreground animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Professional editing for your special moments
+            OUR ART TELLS YOUR STORY
           </p>
         </div>
 
