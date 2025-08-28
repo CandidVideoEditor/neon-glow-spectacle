@@ -200,8 +200,6 @@ const HomePage: React.FC = () => {
                     <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
                       <div className="w-0 h-0 border-l-4 border-l-white border-t-2 border-t-transparent border-b-2 border-b-transparent ml-0.5"></div>
                     </div>
-                    <p className="text-sm text-foreground font-medium px-2">Wedding Short #{i + 1}</p>
-                    <p className="text-xs text-muted-foreground">{Math.floor(Math.random() * 500 + 50)}K views</p>
                   </div>
                 </div>
               ))}
@@ -216,8 +214,6 @@ const HomePage: React.FC = () => {
                     <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
                       <div className="w-0 h-0 border-l-4 border-l-white border-t-2 border-t-transparent border-b-2 border-b-transparent ml-0.5"></div>
                     </div>
-                    <p className="text-sm text-foreground font-medium px-2">Event Short #{i + 21}</p>
-                    <p className="text-xs text-muted-foreground">{Math.floor(Math.random() * 500 + 50)}K views</p>
                   </div>
                 </div>
               ))}

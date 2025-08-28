@@ -15,7 +15,8 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }) => {
     { id: 'videos', label: 'Videos' },
     { id: 'shorts', label: 'Shorts' },
     { id: 'playlists', label: 'Playlists' },
-    { id: 'posts', label: 'Posts' }
+    { id: 'posts', label: 'Posts' },
+    { id: 'team', label: 'Our Team' }
   ];
 
   const handleSearchToggle = () => {

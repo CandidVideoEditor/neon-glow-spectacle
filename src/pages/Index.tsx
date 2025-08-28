@@ -8,6 +8,7 @@ import VideosPage from '../components/VideosPage';
 import ShortsPage from '../components/ShortsPage';
 import PlaylistsPage from '../components/PlaylistsPage';
 import PostsPage from '../components/PostsPage';
+import OurTeamPage from '../components/OurTeamPage';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -24,6 +25,8 @@ const Index = () => {
         return <PlaylistsPage />;
       case 'posts':
         return <PostsPage />;
+      case 'team':
+        return <OurTeamPage />;
       default:
         return <HomePage />;
     }
