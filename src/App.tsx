@@ -1,27 +1,24 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import TripleParallaxMarquee from "@/components/TripleParallaxMarquee";
+import HomeVideoGrid from "@/components/HomeVideoGrid";
+import TrendingShorts from "@/components/TrendingShorts";
 
-const queryClient = new QueryClient();
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-black text-white space-y-12 p-6">
+      {/* 3-layer scrolling images */}
+      <TripleParallaxMarquee />
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+      {/* 30 videos grid */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Featured Videos</h2>
+        <HomeVideoGrid />
+      </section>
 
-export default App;
+      {/* 20 shorts scroll */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Trending Shorts</h2>
+        <TrendingShorts />
+      </section>
+    </main>
+  );
+}
