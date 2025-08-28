@@ -91,14 +91,6 @@ const HomePage: React.FC = () => {
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg">{event.name}</h3>
-                  <p className="text-sm text-white/80">Professional Edit</p>
-                </div>
-                <div className="absolute top-4 right-4 bg-red-600 text-white text-xs px-2 py-1 rounded-full">
-                  4K Quality
-                </div>
               </div>
             ))}
             {/* Duplicate for seamless loop */}
@@ -109,14 +101,6 @@ const HomePage: React.FC = () => {
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg">{event.name}</h3>
-                  <p className="text-sm text-white/80">Professional Edit</p>
-                </div>
-                <div className="absolute top-4 right-4 bg-red-600 text-white text-xs px-2 py-1 rounded-full">
-                  4K Quality
-                </div>
               </div>
             ))}
           </div>
@@ -133,14 +117,6 @@ const HomePage: React.FC = () => {
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg">{event.name}</h3>
-                  <p className="text-sm text-white/80">Expert Color Grading</p>
-                </div>
-                <div className="absolute top-4 right-4 bg-purple-600 text-white text-xs px-2 py-1 rounded-full">
-                  HDR
-                </div>
               </div>
             ))}
             {/* Duplicate for seamless loop */}
@@ -151,14 +127,6 @@ const HomePage: React.FC = () => {
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg">{event.name}</h3>
-                  <p className="text-sm text-white/80">Expert Color Grading</p>
-                </div>
-                <div className="absolute top-4 right-4 bg-purple-600 text-white text-xs px-2 py-1 rounded-full">
-                  HDR
-                </div>
               </div>
             ))}
           </div>
@@ -175,14 +143,6 @@ const HomePage: React.FC = () => {
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg">{event.name}</h3>
-                  <p className="text-sm text-white/80">Cinematic Excellence</p>
-                </div>
-                <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  Premium
-                </div>
               </div>
             ))}
             {/* Duplicate for seamless loop */}
@@ -193,14 +153,6 @@ const HomePage: React.FC = () => {
                   alt={event.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg">{event.name}</h3>
-                  <p className="text-sm text-white/80">Cinematic Excellence</p>
-                </div>
-                <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  Premium
-                </div>
               </div>
             ))}
           </div>
