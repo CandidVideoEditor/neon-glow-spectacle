@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import AnimatedBanner from '../components/AnimatedBanner';
 import ChannelInfo from '../components/ChannelInfo';
 import Navigation from '../components/Navigation';
-import FloatingMusicPlayer from '../components/FloatingMusicPlayer';
+import FilmReelLoader from '../components/FilmReelLoader';
+import BackgroundMusic from '../components/BackgroundMusic';
 import HomePage from '../components/HomePage';
 import VideosPage from '../components/VideosPage';
 import ShortsPage from '../components/ShortsPage';
@@ -12,6 +13,7 @@ import OurTeamPage from '../components/OurTeamPage';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [isLoading, setIsLoading] = useState(true);
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -32,10 +34,14 @@ const Index = () => {
     }
   };
 
+  if (isLoading) {
+    return <FilmReelLoader onComplete={() => setIsLoading(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Floating Music Player */}
-      <FloatingMusicPlayer />
+      {/* Background Music */}
+      <BackgroundMusic />
       
       {/* Animated Banner */}
       <AnimatedBanner />

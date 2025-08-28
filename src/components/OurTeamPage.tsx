@@ -124,30 +124,96 @@ const OurTeamPage: React.FC = () => {
               </div>
 
               {/* Unique Collage Design */}
-              <div className="mb-6 relative h-32 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-500/10 to-blue-500/10">
-                <div className="absolute inset-0 grid grid-cols-4 gap-1 p-2">
-                  {member.collageImages.map((image, idx) => (
-                    <div 
-                      key={idx}
-                      className={`rounded-lg overflow-hidden ${
-                        idx === 0 ? 'col-span-2 row-span-2' : 
-                        idx === 1 ? 'col-span-2' : 
-                        idx === 2 ? 'col-span-1' : 'col-span-1'
-                      }`}
-                      style={{
-                        transform: `rotate(${idx % 2 === 0 ? '2deg' : '-2deg'})`,
-                        zIndex: 4 - idx
-                      }}
-                    >
-                      <img 
-                        src={image}
-                        alt={`${member.name} work ${idx + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        style={{ filter: `hue-rotate(${idx * 30}deg)` }}
-                      />
+              <div className="mb-6 relative h-40 rounded-2xl overflow-hidden">
+                {/* Different unique layout for each member */}
+                {member.id === 1 && (
+                  <div className="absolute inset-0 p-3">
+                    <div className="relative h-full">
+                      <div className="absolute top-0 left-0 w-1/2 h-full rounded-xl overflow-hidden transform -rotate-3 z-20">
+                        <img src={member.collageImages[0]} alt="work 1" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute top-2 right-0 w-2/5 h-3/5 rounded-lg overflow-hidden transform rotate-6 z-10">
+                        <img src={member.collageImages[1]} alt="work 2" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-0 right-2 w-1/3 h-2/5 rounded-lg overflow-hidden transform -rotate-12 z-30">
+                        <img src={member.collageImages[2]} alt="work 3" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-4 left-16 w-1/4 h-1/3 rounded-full overflow-hidden transform rotate-45 z-40">
+                        <img src={member.collageImages[3]} alt="work 4" className="w-full h-full object-cover" />
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+                
+                {member.id === 2 && (
+                  <div className="absolute inset-0 p-2">
+                    <div className="grid grid-cols-3 gap-2 h-full">
+                      <div className="rounded-xl overflow-hidden transform rotate-2">
+                        <img src={member.collageImages[0]} alt="work 1" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="rounded-xl overflow-hidden transform -rotate-1">
+                        <img src={member.collageImages[1]} alt="work 2" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="rounded-xl overflow-hidden transform rotate-3">
+                        <img src={member.collageImages[2]} alt="work 3" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {member.id === 3 && (
+                  <div className="absolute inset-0 p-3">
+                    <div className="relative h-full">
+                      <div className="absolute top-0 left-1/4 w-1/2 h-3/4 rounded-full overflow-hidden transform rotate-12 z-20">
+                        <img src={member.collageImages[0]} alt="work 1" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute top-4 left-0 w-1/3 h-1/2 rounded-lg overflow-hidden transform -rotate-45 z-10">
+                        <img src={member.collageImages[1]} alt="work 2" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-2 right-0 w-2/5 h-3/5 rounded-2xl overflow-hidden transform rotate-6 z-30">
+                        <img src={member.collageImages[2]} alt="work 3" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-0 left-8 w-1/4 h-1/4 rounded-full overflow-hidden transform -rotate-90 z-40">
+                        <img src={member.collageImages[3]} alt="work 4" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {member.id === 4 && (
+                  <div className="absolute inset-0 p-2">
+                    <div className="relative h-full">
+                      <div className="absolute top-0 right-0 w-3/5 h-full rounded-lg overflow-hidden transform rotate-1 z-10">
+                        <img src={member.collageImages[0]} alt="work 1" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute top-2 left-0 w-2/5 h-3/5 rounded-xl overflow-hidden transform -rotate-6 z-20">
+                        <img src={member.collageImages[1]} alt="work 2" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-0 left-4 w-1/3 h-2/5 rounded-full overflow-hidden transform rotate-12 z-30">
+                        <img src={member.collageImages[2]} alt="work 3" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {member.id === 5 && (
+                  <div className="absolute inset-0 p-3">
+                    <div className="relative h-full">
+                      <div className="absolute inset-y-0 left-0 w-1/2 rounded-2xl overflow-hidden transform -rotate-2 z-10">
+                        <img src={member.collageImages[0]} alt="work 1" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute top-0 right-4 w-1/3 h-2/3 rounded-lg overflow-hidden transform rotate-12 z-20">
+                        <img src={member.collageImages[1]} alt="work 2" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-4 right-0 w-1/4 h-1/3 rounded-full overflow-hidden transform -rotate-45 z-30">
+                        <img src={member.collageImages[2]} alt="work 3" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute bottom-0 left-20 w-1/5 h-1/4 rounded-lg overflow-hidden transform rotate-90 z-40">
+                        <img src={member.collageImages[3]} alt="work 4" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Bio */}
