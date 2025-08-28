@@ -88,8 +88,8 @@ const OurTeamPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Team Vertical Layout */}
+        <div className="space-y-12 max-w-4xl mx-auto">
           {teamMembers.map((member, index) => (
             <div 
               key={member.id} 
