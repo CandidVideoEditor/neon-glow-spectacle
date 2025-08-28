@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
           <div className="flex gap-4 animate-[scrollRight_25s_linear_infinite] hover:[animation-play-state:paused]">
             {/* Original set */}
             {weddingEvents.layer1.map((event, i) => (
-              <div key={`layer1-orig-${i}`} className="flex-shrink-0 w-72 h-48 relative rounded-xl overflow-hidden group cursor-pointer">
+              <div key={`layer1-orig-${i}`} className="flex-shrink-0 w-56 h-36 relative rounded-xl overflow-hidden group cursor-pointer">
                 <img 
                   src={event.image} 
                   alt={event.name}
@@ -95,7 +95,7 @@ const HomePage: React.FC = () => {
             ))}
             {/* Duplicate for seamless loop */}
             {weddingEvents.layer1.map((event, i) => (
-              <div key={`layer1-dup-${i}`} className="flex-shrink-0 w-72 h-48 relative rounded-xl overflow-hidden group cursor-pointer">
+              <div key={`layer1-dup-${i}`} className="flex-shrink-0 w-56 h-36 relative rounded-xl overflow-hidden group cursor-pointer">
                 <img 
                   src={event.image} 
                   alt={event.name}
@@ -111,7 +111,7 @@ const HomePage: React.FC = () => {
           <div className="flex gap-4 animate-[scrollLeft_30s_linear_infinite] hover:[animation-play-state:paused]">
             {/* Original set */}
             {weddingEvents.layer2.map((event, i) => (
-              <div key={`layer2-orig-${i}`} className="flex-shrink-0 w-72 h-48 relative rounded-xl overflow-hidden group cursor-pointer">
+              <div key={`layer2-orig-${i}`} className="flex-shrink-0 w-56 h-36 relative rounded-xl overflow-hidden group cursor-pointer">
                 <img 
                   src={event.image} 
                   alt={event.name}
@@ -121,7 +121,7 @@ const HomePage: React.FC = () => {
             ))}
             {/* Duplicate for seamless loop */}
             {weddingEvents.layer2.map((event, i) => (
-              <div key={`layer2-dup-${i}`} className="flex-shrink-0 w-72 h-48 relative rounded-xl overflow-hidden group cursor-pointer">
+              <div key={`layer2-dup-${i}`} className="flex-shrink-0 w-56 h-36 relative rounded-xl overflow-hidden group cursor-pointer">
                 <img 
                   src={event.image} 
                   alt={event.name}
@@ -137,7 +137,7 @@ const HomePage: React.FC = () => {
           <div className="flex gap-4 animate-[scrollRight_35s_linear_infinite] hover:[animation-play-state:paused]">
             {/* Original set */}
             {weddingEvents.layer3.map((event, i) => (
-              <div key={`layer3-orig-${i}`} className="flex-shrink-0 w-72 h-48 relative rounded-xl overflow-hidden group cursor-pointer">
+              <div key={`layer3-orig-${i}`} className="flex-shrink-0 w-56 h-36 relative rounded-xl overflow-hidden group cursor-pointer">
                 <img 
                   src={event.image} 
                   alt={event.name}
@@ -147,7 +147,7 @@ const HomePage: React.FC = () => {
             ))}
             {/* Duplicate for seamless loop */}
             {weddingEvents.layer3.map((event, i) => (
-              <div key={`layer3-dup-${i}`} className="flex-shrink-0 w-72 h-48 relative rounded-xl overflow-hidden group cursor-pointer">
+              <div key={`layer3-dup-${i}`} className="flex-shrink-0 w-56 h-36 relative rounded-xl overflow-hidden group cursor-pointer">
                 <img 
                   src={event.image} 
                   alt={event.name}
