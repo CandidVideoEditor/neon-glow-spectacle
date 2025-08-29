@@ -112,12 +112,12 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'scroll': 'scroll 40s linear infinite',
 				'scroll-right': 'scroll-right 40s linear infinite',
+				'scroll-left': 'scroll-left 40s linear infinite',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'slide-up': 'slide-up 0.6s ease-out',
 				'slide-in-left': 'slide-in-left 0.5s ease-out',
 				'bounce-in': 'bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-				'spin-slow': 'spin 3s linear infinite',
-				'scroll-left': 'scroll-left 2s linear infinite'
+				'spin-slow': 'spin 3s linear infinite'
 			}
 		}
 	},

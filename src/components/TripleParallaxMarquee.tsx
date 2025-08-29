@@ -11,13 +11,13 @@ const TripleParallaxMarquee: React.FC = () => {
 
       {/* Layer 1 - Scrolls Right */}
       <div className="overflow-hidden">
-        <div className="flex gap-4 animate-scroll-right hover:pause">
+        <div className="flex gap-3 animate-scroll-right hover:pause">
           {[...LAYER1, ...LAYER1].map((image, index) => (
             <div key={index} className="flex-shrink-0">
               <img
                 src={image}
                 alt={`Gallery image ${index + 1}`}
-                className="w-48 h-32 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                className="w-32 h-20 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
               />
             </div>
           ))}
@@ -26,13 +26,13 @@ const TripleParallaxMarquee: React.FC = () => {
 
       {/* Layer 2 - Scrolls Left */}
       <div className="overflow-hidden">
-        <div className="flex gap-4 animate-scroll-left hover:pause">
+        <div className="flex gap-3 animate-scroll-left hover:pause">
           {[...LAYER2, ...LAYER2].map((image, index) => (
             <div key={index} className="flex-shrink-0">
               <img
                 src={image}
                 alt={`Gallery image ${index + 1}`}
-                className="w-48 h-32 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                className="w-32 h-20 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
               />
             </div>
           ))}
@@ -41,13 +41,13 @@ const TripleParallaxMarquee: React.FC = () => {
 
       {/* Layer 3 - Scrolls Right */}
       <div className="overflow-hidden">
-        <div className="flex gap-4 animate-scroll-right hover:pause">
+        <div className="flex gap-3 animate-scroll-right hover:pause">
           {[...LAYER3, ...LAYER3].map((image, index) => (
             <div key={index} className="flex-shrink-0">
               <img
                 src={image}
                 alt={`Gallery image ${index + 1}`}
-                className="w-48 h-32 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                className="w-32 h-20 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
               />
             </div>
           ))}
