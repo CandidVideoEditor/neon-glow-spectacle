@@ -4,10 +4,13 @@ import ChannelInfo from '../components/ChannelInfo';
 import Navigation from '../components/Navigation';
 import FilmReelLoader from '../components/FilmReelLoader';
 import BackgroundMusic from '../components/BackgroundMusic';
+import FloatingMusicPlayer from '../components/FloatingMusicPlayer';
 import HomePage from '../components/HomePage';
 import VideosPage from '../components/VideosPage';
 import ShortsPage from '../components/ShortsPage';
 import PlaylistsPage from '../components/PlaylistsPage';
+import SongsPage from '../components/SongsPage';
+import ProjectsPage from '../components/ProjectsPage';
 import PostsPage from '../components/PostsPage';
 import OurTeamPage from '../components/OurTeamPage';
 
@@ -25,6 +28,10 @@ const Index = () => {
         return <ShortsPage />;
       case 'playlists':
         return <PlaylistsPage />;
+      case 'songs':
+        return <SongsPage />;
+      case 'projects':
+        return <ProjectsPage />;
       case 'posts':
         return <PostsPage />;
       case 'team':
@@ -42,6 +49,9 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       {/* Background Music */}
       <BackgroundMusic />
+      
+      {/* Floating Music Player */}
+      <FloatingMusicPlayer />
       
       {/* Animated Banner */}
       <AnimatedBanner />

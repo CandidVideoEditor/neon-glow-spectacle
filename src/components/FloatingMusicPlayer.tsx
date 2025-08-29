@@ -1,111 +1,98 @@
-import React, { useState, useRef } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Move, Music } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Play, Pause, Volume2, VolumeX, SkipForward, SkipBack, Music } from 'lucide-react';
+import { Button } from './ui/button';
+import { Slider } from './ui/slider';
 
 const FloatingMusicPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState(30);
+  const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [position, setPosition] = useState({ x: window.innerWidth - 320, y: 100 });
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 16, y: 16 });
-  const [showPlaylist, setShowPlaylist] = useState(false);
-  const [currentSong, setCurrentSong] = useState({ title: 'Chill Beats', artist: 'Lo-fi Hip Hop', language: 'English' });
-  const [isSpotifyMode, setIsSpotifyMode] = useState(false);
-  const [spotifyTrackId, setSpotifyTrackId] = useState('4iV5W9uYEdYUVa79Axb7Rh'); // Default track
-  const dragRef = useRef<HTMLDivElement>(null);
-  const dragStartRef = useRef({ x: 0, y: 0 });
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
 
-  const songs = {
-    Kannada: [
-      { title: 'Yaare Koogadali', artist: 'Sanjith Hegde' },
-      { title: 'Ondu Malebillu', artist: 'Armaan Malik' }
-    ],
-    Hindi: [
-      { title: 'Tum Hi Ho', artist: 'Arijit Singh' },
-      { title: 'Kesariya', artist: 'Pritam' }
-    ],
-    Telugu: [
-      { title: 'Buttabomma', artist: 'Armaan Malik' },
-      { title: 'Ramuloo Ramulaa', artist: 'Anurag Kulkarni' }
-    ],
-    Tamil: [
-      { title: 'Vaathi Coming', artist: 'Anirudh' },
-      { title: 'Ennodu Nee Irundhaal', artist: 'Sid Sriram' }
-    ],
-    Marathi: [
-      { title: 'Zingaat', artist: 'Ajay Gogavale' },
-      { title: 'Bappa Morya', artist: 'Shankar Mahadevan' }
-    ],
-    Malayalam: [
-      { title: 'Paattu Paadava', artist: 'K.J. Yesudas' },
-      { title: 'Malyalam Melody', artist: 'Vineeth Sreenivasan' }
-    ],
-    English: [
-      { title: 'Chill Beats', artist: 'Lo-fi Hip Hop' },
-      { title: 'Summer Vibes', artist: 'Indie Pop' }
-    ],
-    Spotify: [
-      { title: 'Spotify Tracks', artist: 'Stream Free', spotifyId: '4iV5W9uYEdYUVa79Axb7Rh' },
-      { title: 'Popular Hits', artist: 'Spotify', spotifyId: '0VjIjW4GlUZAMYd2vXMi3b' }
-    ]
-  };
-
-  const spotifyTracks = [
-    { id: '4iV5W9uYEdYUVa79Axb7Rh', title: 'Shape of You', artist: 'Ed Sheeran' },
-    { id: '0VjIjW4GlUZAMYd2vXMi3b', title: 'Blinding Lights', artist: 'The Weeknd' },
-    { id: '3n3Ppam7vgaVa1iaRUc9Lp', title: 'Mr. Brightside', artist: 'The Killers' },
-    { id: '7qiZfU4dY1lWllzX7mPBI3', title: 'Someone Like You', artist: 'Adele' },
-    { id: '4VqPOruhp5EdPBeR92t6lQ', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars' },
-    { id: '1Je1IMUlBXcx1Fz0WE7oPT', title: 'Bad Guy', artist: 'Billie Eilish' },
-    { id: '11dFghVXANMlKmJXsNCbNl', title: 'Someone You Loved', artist: 'Lewis Capaldi' },
-    { id: '0sf0Es2FDLt3Zb5aSzIVQF', title: 'Watermelon Sugar', artist: 'Harry Styles' },
-    { id: '6f70bfcWU0aPCnQSAOBBnqX', title: 'Levitating', artist: 'Dua Lipa' },
-    { id: '2plbrEY59IikOBgBGLjaoe', title: 'drivers license', artist: 'Olivia Rodrigo' }
+  const songs = [
+    {
+      title: "Peaceful Background Music",
+      artist: "Studio Artist",
+      url: "https://www.soundjay.com/misc/sounds-1023.mp3"
+    }
   ];
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  const selectSong = (language: string, song: { title: string; artist: string; spotifyId?: string }) => {
-    if (language === 'Spotify' && song.spotifyId) {
-      setIsSpotifyMode(true);
-      setSpotifyTrackId(song.spotifyId);
-      setCurrentSong({ title: 'Spotify Track', artist: 'Loading...', language: 'Spotify' });
-    } else {
-      setIsSpotifyMode(false);
-      setCurrentSong({ ...song, language });
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = volume / 100;
+      
+      const updateTime = () => setCurrentTime(audio.currentTime);
+      const updateDuration = () => setDuration(audio.duration);
+      
+      audio.addEventListener('timeupdate', updateTime);
+      audio.addEventListener('loadedmetadata', updateDuration);
+      
+      return () => {
+        audio.removeEventListener('timeupdate', updateTime);
+        audio.removeEventListener('loadedmetadata', updateDuration);
+      };
     }
-    setShowPlaylist(false);
-    setIsPlaying(true);
+  }, [volume]);
+
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
 
-  const selectSpotifyTrack = (track: { id: string; title: string; artist: string }) => {
-    setIsSpotifyMode(true);
-    setSpotifyTrackId(track.id);
-    setCurrentSong({ title: track.title, artist: track.artist, language: 'Spotify' });
-    setShowPlaylist(false);
-    setIsPlaying(true);
+  const toggleMute = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleVolumeChange = (newVolume: number[]) => {
+    const vol = newVolume[0];
+    setVolume(vol);
+    if (audioRef.current) {
+      audioRef.current.volume = vol / 100;
+    }
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
-    dragStartRef.current = {
-      x: e.clientX - position.x,
-      y: e.clientY - position.y
-    };
+    const rect = playerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+    }
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
-      const newX = e.clientX - dragStartRef.current.x;
-      const newY = e.clientY - dragStartRef.current.y;
-      
-      // Constrain to viewport
-      const maxX = window.innerWidth - 250; // player width
-      const maxY = window.innerHeight - 120; // player height
-      
       setPosition({
-        x: Math.max(0, Math.min(newX, maxX)),
-        y: Math.max(0, Math.min(newY, maxY))
+        x: Math.max(0, Math.min(window.innerWidth - 300, e.clientX - dragOffset.x)),
+        y: Math.max(0, Math.min(window.innerHeight - 200, e.clientY - dragOffset.y))
       });
     }
   };
@@ -114,162 +101,125 @@ const FloatingMusicPlayer: React.FC = () => {
     setIsDragging(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
+      
       return () => {
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging]);
+  }, [isDragging, dragOffset]);
 
   return (
-    <div 
-      ref={dragRef}
-      className="fixed z-50 glass rounded-xl p-3 w-64 shadow-lg cursor-move"
-      style={{ 
-        left: `${position.x}px`, 
-        top: `${position.y}px`,
-        backgroundColor: 'hsl(var(--glass-bg))'
-      }}
-      onMouseDown={handleMouseDown}
-    >
-      {/* Drag Handle */}
-      <div className="flex items-center justify-between mb-2">
-        <Move className="w-3 h-3 text-muted-foreground" />
-        <div className="text-xs text-muted-foreground">Now Playing</div>
-      </div>
-
-      {/* Song Info - Compact */}
-      <div className="flex items-center gap-2 mb-2">
-        <button 
-          onClick={() => setShowPlaylist(!showPlaylist)}
-          className="w-8 h-8 bg-muted rounded flex items-center justify-center hover:bg-muted/80 transition-colors"
-        >
-          <Music className="w-3 h-3 text-foreground" />
-        </button>
-        <div className="flex-1 min-w-0">
-          <div className="text-xs font-medium text-foreground truncate">
-            {currentSong.title}
+    <>
+      <audio ref={audioRef} src={songs[0].url} loop />
+      
+      <div
+        ref={playerRef}
+        className="fixed z-50 bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-lg transition-all duration-300"
+        style={{
+          left: position.x,
+          top: position.y,
+          width: isMinimized ? '60px' : '300px',
+          height: isMinimized ? '60px' : 'auto'
+        }}
+      >
+        {isMinimized ? (
+          <div className="p-3 flex items-center justify-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsMinimized(false)}
+              className="w-full h-full"
+            >
+              <Music className="w-5 h-5" />
+            </Button>
           </div>
-          <div className="text-xs text-muted-foreground truncate">
-            {currentSong.artist} • {currentSong.language}
-          </div>
-        </div>
-      </div>
-
-      {/* Playlist Dropdown */}
-      {showPlaylist && (
-        <div className="absolute top-full left-0 w-64 max-h-60 overflow-y-auto bg-card border border-white/10 rounded-lg mt-1 z-50">
-          {/* Spotify Tracks Section */}
-          <div className="p-2 border-b border-white/10">
-            <div className="text-xs font-semibold text-green-400 mb-1 flex items-center gap-1">
-              🎵 Spotify Free
-            </div>
-            {spotifyTracks.map((track, index) => (
-              <button
-                key={`spotify-${index}`}
-                onClick={() => selectSpotifyTrack(track)}
-                className="w-full text-left p-1 hover:bg-white/5 rounded text-xs text-foreground/80 hover:text-foreground transition-colors"
+        ) : (
+          <>
+            {/* Header */}
+            <div
+              className="flex items-center justify-between p-3 cursor-move border-b border-border"
+              onMouseDown={handleMouseDown}
+            >
+              <div className="flex items-center gap-2">
+                <Music className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium">Music Player</span>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMinimized(true)}
+                className="h-6 w-6 p-0"
               >
-                <div className="truncate">{track.title}</div>
-                <div className="text-xs text-muted-foreground truncate">{track.artist}</div>
-              </button>
-            ))}
-          </div>
-          
-          {/* Local Songs */}
-          {Object.entries(songs).filter(([language]) => language !== 'Spotify').map(([language, songList]) => (
-            <div key={language} className="p-2">
-              <div className="text-xs font-semibold text-muted-foreground mb-1">{language}</div>
-              {songList.map((song, index) => (
-                <button
-                  key={index}
-                  onClick={() => selectSong(language, song)}
-                  className="w-full text-left p-1 hover:bg-white/5 rounded text-xs text-foreground/80 hover:text-foreground transition-colors"
-                >
-                  <div className="truncate">{song.title}</div>
-                  <div className="text-xs text-muted-foreground truncate">{song.artist}</div>
-                </button>
-              ))}
+                <span className="text-xs">−</span>
+              </Button>
             </div>
-          ))}
-        </div>
-      )}
 
-      {/* Spotify Embed Player */}
-      {isSpotifyMode && isPlaying && (
-        <div className="absolute top-full left-0 w-64 mt-1 rounded-lg overflow-hidden z-40">
-          <iframe
-            src={`https://open.spotify.com/embed/track/${spotifyTrackId}?utm_source=generator&theme=0`}
-            width="100%"
-            height="152"
-            frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            className="rounded-lg"
-          />
-        </div>
-      )}
+            {/* Song Info */}
+            <div className="p-3 border-b border-border">
+              <h4 className="text-sm font-medium text-foreground truncate">
+                {songs[0].title}
+              </h4>
+              <p className="text-xs text-muted-foreground truncate">
+                {songs[0].artist}
+              </p>
+            </div>
 
-      {/* Waveform Animation - Red */}
-      <div className="flex items-center justify-center gap-0.5 h-4 mb-2">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className={`waveform-bar bg-destructive w-0.5 rounded-full ${
-              isPlaying ? 'waveform-bar' : 'h-0.5'
-            }`}
-            style={{
-              animationDelay: `${i * 0.15}s`,
-              animationPlayState: isPlaying ? 'running' : 'paused'
-            }}
-          />
-        ))}
+            {/* Progress Bar */}
+            <div className="px-3 py-2">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{formatTime(currentTime)}</span>
+                <div className="flex-1 h-1 bg-muted rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-primary transition-all duration-200"
+                    style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
+                  />
+                </div>
+                <span>{formatTime(duration)}</span>
+              </div>
+            </div>
+
+            {/* Controls */}
+            <div className="p-3 space-y-3">
+              <div className="flex items-center justify-center gap-2">
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                  <SkipBack className="w-4 h-4" />
+                </Button>
+                <Button onClick={togglePlay} size="sm" className="h-8 w-8 p-0">
+                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                </Button>
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                  <SkipForward className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Volume Control */}
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleMute}
+                  className="h-6 w-6 p-0"
+                >
+                  {isMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
+                </Button>
+                <Slider
+                  value={[isMuted ? 0 : volume]}
+                  onValueChange={handleVolumeChange}
+                  max={100}
+                  step={1}
+                  className="flex-1"
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
-
-      {/* Controls - Compact */}
-      <div className="flex items-center justify-center gap-2 mb-2">
-        <button className="p-1 hover:bg-white/10 rounded-full transition-colors duration-200">
-          <SkipBack className="w-3 h-3 text-foreground" />
-        </button>
-        
-        <button 
-          onClick={togglePlayPause}
-          className="p-2 bg-destructive hover:bg-destructive/80 rounded-full transition-all duration-200"
-        >
-          {isPlaying ? (
-            <Pause className="w-3 h-3 text-destructive-foreground" />
-          ) : (
-            <Play className="w-3 h-3 text-destructive-foreground ml-0.5" />
-          )}
-        </button>
-        
-        <button className="p-1 hover:bg-white/10 rounded-full transition-colors duration-200">
-          <SkipForward className="w-3 h-3 text-foreground" />
-        </button>
-      </div>
-
-      {/* Volume Control - Compact */}
-      <div className="flex items-center gap-1">
-        <Volume2 className="w-3 h-3 text-muted-foreground" />
-        <div className="flex-1 relative">
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={volume}
-            onChange={(e) => setVolume(parseInt(e.target.value))}
-            className="w-full h-0.5 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
-            style={{
-              background: `linear-gradient(to right, hsl(var(--destructive)) 0%, hsl(var(--destructive)) ${volume}%, rgba(255,255,255,0.2) ${volume}%, rgba(255,255,255,0.2) 100%)`
-            }}
-          />
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
