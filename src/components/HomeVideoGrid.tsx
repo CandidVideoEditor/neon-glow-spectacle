@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HOME_VIDEOS } from './mediaData';
 
@@ -36,6 +37,18 @@ const HomeVideoGrid: React.FC = () => {
       "Anniversary Celebration"
     ];
 
+    const youtubeLinks = [
+      "https://youtu.be/RpxAKrwL9XI?si=xxqOKcTJn0hzNA4e",
+      "https://youtu.be/Dv22ntR71V8?si=ZH6uSb429x8xRbIN",
+      "https://youtu.be/0uZh6J9iWoU?si=qtLsw131uABVI4Kz",
+      "https://youtu.be/xrCaVrxKXGY?si=9cyu2WKOygeFx6je",
+      "https://youtu.be/ivSPikCv7q4?si=Ye6X8TklfRTeA0-h",
+      "https://youtu.be/YUdAeTEGoOs?si=2iqPikK_mjmGu4ua",
+      "https://youtu.be/pZNKiM35A54?si=1747mlQ4W5vXMoAE",
+      "https://youtu.be/cvcdy_nDiss?si=tqubidRRJutT-w6_",
+      "https://youtu.be/YUkIclpM_XM?si=NF3dRduCg3QL0qq8"
+    ];
+
     return Array.from({length: count}, (_, i) => ({
       id: i + 1,
       title: titles[i] || `Wedding Video ${i + 1}`,
@@ -44,16 +57,20 @@ const HomeVideoGrid: React.FC = () => {
       likes: `${(Math.random() * 10 + 1).toFixed(1)}K`,
       comments: `${Math.floor(Math.random() * 200 + 10)}`,
       shares: `${Math.floor(Math.random() * 100 + 5)}`,
-      videoUrl: HOME_VIDEOS[i] || HOME_VIDEOS[0]
+      videoUrl: i < 9 ? youtubeLinks[i] : (HOME_VIDEOS[i] || HOME_VIDEOS[0])
     }));
   };
 
   const videos = generateVideos(30);
 
+  const handleVideoClick = (videoUrl: string) => {
+    window.open(videoUrl, '_blank');
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {videos.map((video) => (
-        <div key={video.id} className="group cursor-pointer">
+        <div key={video.id} className="group cursor-pointer" onClick={() => handleVideoClick(video.videoUrl)}>
           <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
             <video
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
