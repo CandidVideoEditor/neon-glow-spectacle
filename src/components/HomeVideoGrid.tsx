@@ -64,16 +64,11 @@ const HomeVideoGrid: React.FC = () => {
   const videos = generateVideos(30);
 
   const handleVideoClick = (videoUrl: string) => {
-    console.log('Clicking video with URL:', videoUrl);
-    try {
-      const newWindow = window.open(videoUrl, '_blank', 'noopener,noreferrer');
-      if (!newWindow) {
-        console.error('Popup blocked - trying direct navigation');
-        window.location.href = videoUrl;
-      }
-    } catch (error) {
-      console.error('Error opening video:', error);
-      window.location.href = videoUrl;
+    // For YouTube links, ensure they open in new tab
+    if (videoUrl.includes('youtu')) {
+      window.open(videoUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      window.open(videoUrl, '_blank');
     }
   };
 
