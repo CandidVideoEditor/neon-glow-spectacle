@@ -3,8 +3,6 @@ import AnimatedBanner from '../components/AnimatedBanner';
 import ChannelInfo from '../components/ChannelInfo';
 import Navigation from '../components/Navigation';
 import FilmReelLoader from '../components/FilmReelLoader';
-import BackgroundMusic from '../components/BackgroundMusic';
-import FloatingMusicPlayer from '../components/FloatingMusicPlayer';
 import HomePage from '../components/HomePage';
 import VideosPage from '../components/VideosPage';
 import ShortsPage from '../components/ShortsPage';
@@ -47,11 +45,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Background Music */}
-      <BackgroundMusic />
-      
-      {/* Floating Music Player */}
-      <FloatingMusicPlayer />
       
       {/* Animated Banner */}
       <AnimatedBanner />
